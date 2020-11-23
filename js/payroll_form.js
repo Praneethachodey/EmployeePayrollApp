@@ -89,9 +89,9 @@ class EmployeePayrollData{
         }
     }
     toString() {
-        return " Name: " + this.name + " Salary: " + this.salary + " Gender: " + this.gender +
-            " Start Date: " + this.startDate + " Department: " + this.department + " Profile Pic: " +
-            this.profilePic + " Notes: " + this.notes;
+        return " Name: " + this._name + " Salary: " + this._salary + " Gender: " + this._gender +
+            " Start Date: " + this._startDate + " Department: " + this._department + " Profile Pic: " +
+            this._profilePic + " Notes: " + this._notes;
     }
 }
 function save() {
@@ -105,19 +105,18 @@ function save() {
         var day = document.querySelector('#day').value;
         var startDate = new Date(year, month, day);
         var department = [];
-        var deptCheckboxes = document.querySelectorAll('input[name=department]:checked');
+        var deptCheckboxes = document.querySelectorAll("input[name=department]");
+        deptCheckboxes.forEach(item => {if(item.checked)
+                department.push(item.value);} );
         var notes = document.querySelector('#notes').value;
-        for (var i = 0; i < deptCheckboxes.length; i++) {
-            department.push(deptCheckboxes[i].value);
-        }
         var employee = new EmployeePayrollData();
-        employee.name = name;
-        employee.gender = gender;
-        employee.notes = notes;
-        employee.profilePic = profilePic;
-        employee.department = department;
-        employee.salary = salary;
-        employee.startDate = startDate;
+        employee._name = name;
+        employee._gender = gender;
+        employee._notes = notes;
+        employee._profilePic = profilePic;
+        employee._department = department;
+        employee._salary = salary;
+        employee._startDate = startDate;
 
     alert("success " + employee.toString());
     createAndUpdateStorage(employee);
